@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: teach-application
+  datasource:
+    url: jdbc:postgresql://localhost:5432/my_db_order
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update  # or 'create', 'validate', 'none'
+    show-sql: true
+server:
+  port: 9090
+
+jwt:
+  token-expiration-seconds: 12000
+  token-expiration-seconds-refresh: 18000
+  secret-key: asddsadasdasdasdaada424242354354356ghgfhffhfgjgjhjggyrtyr56756gdfgdftertert4564564564vcbc43436356564564
+
+string:
+  encode:
+    secrete: gihan99erangaXXXXXXX
+    aes: AES
