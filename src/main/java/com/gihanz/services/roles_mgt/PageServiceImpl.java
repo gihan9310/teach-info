@@ -7,7 +7,9 @@ import com.gihanz.dtos.roles_mgt.PageDto;
 import com.gihanz.entities.roles_mgt.PageEntity;
 import com.gihanz.exceptions.CustomException;
 import com.gihanz.repositories.roles_mgt.PageEntityRepository;
+import com.gihanz.repositories.roles_mgt.PageFunctionRepository;
 import com.gihanz.services.SuperService;
+import com.gihanz.utils.mappers.PageFunctionMapper;
 import com.gihanz.utils.mappers.PageMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.Optional;
 public class PageServiceImpl implements SuperService<PageEntity, PageDto> {
 
     private final PageEntityRepository pageEntityRepository;
+    private final PageFunctionRepository pageFunctionRepository;
 
     @Override
     public PageDto create(PageDto dto) {
@@ -58,4 +61,20 @@ public class PageServiceImpl implements SuperService<PageEntity, PageDto> {
     public PageDto findById(Long id) {
         return pageEntityRepository.findById(id).map(PageMapper.INSTANCE::toDto).orElse(null);
     }
+
+    /*
+        Save Page with Functions
+     */
+
+    public PageDto createOrUpdateWithFunctions(PageDto dto) {
+        if(dto.getFunctions()==null){
+            throw new CustomException("Functions cannot be null");
+        }
+//        pageFunctionRepository.existsByFunctionCodeAndPageId()
+        PageDto pageDto = PageMapper.INSTANCE.toDto(pageEntityRepository.save(PageMapper.INSTANCE.toEntity(dto)));
+         pageFunctionRepository.saveAll(dto.getFunctions().stream().map(PageFunctionMapper.INSTANCE::toEntity).toList()).stream().map(PageFunctionMapper.INSTANCE::toDto).toList();
+         pageDto.setFunctions(dto.getFunctions());
+         return pageDto;
+    }
+
 }

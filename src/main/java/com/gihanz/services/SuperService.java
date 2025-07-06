@@ -5,13 +5,21 @@ import com.gihanz.entities.SuperEntity;
 
 import java.util.List;
 
-public interface SuperService <E extends SuperEntity,D extends SuperDto>{
+public interface SuperService<E extends SuperEntity, D extends SuperDto> {
 
     D create(D dto);
+
     D update(D dto);
+
     D delete(Long id);
+
     List<D> findAll();
+
     D findById(Long id);
+
+    default List<D> saveAsList(List<D> dtos) {
+        return dtos;
+    }
 
 
 }

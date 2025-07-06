@@ -6,9 +6,15 @@ package com.gihanz.utils.mappers;
 import com.gihanz.dtos.roles_mgt.PageDto;
 import com.gihanz.entities.roles_mgt.PageEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+@Mapper()
 public interface PageMapper extends SuperMapper<PageDto, PageEntity> {
     PageMapper INSTANCE = Mappers.getMapper(PageMapper.class);
+
+    @Mapping(target = "functions", ignore = true)
+    @Override
+    PageDto toDto(PageEntity pageEntity);
 }
