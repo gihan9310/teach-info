@@ -30,7 +30,7 @@ public class PageFunctionServiceImpl implements SuperService<PageFunctionEntity,
 
     @Override
     public PageFunctionDto create(PageFunctionDto dto) {
-        if (pageFunctionRepository.existsByFunctionIdAndFunctionId(dto.getFunctionId(), dto.getPageId())) {
+        if (pageFunctionRepository.existsByFunctionIdAndPageId(dto.getFunctionId(), dto.getPageId())) {
             throw new CustomException("Function already exists");
         }
         return PageFunctionMapper.INSTANCE.toDto(pageFunctionRepository.save(PageFunctionMapper.INSTANCE.toEntity(dto)));
@@ -38,9 +38,6 @@ public class PageFunctionServiceImpl implements SuperService<PageFunctionEntity,
 
     @Override
     public PageFunctionDto update(PageFunctionDto dto) {
-//        if (pageFunctionRepository.existsByFunctionCodeAndPageId(dto.getFunctionId(), dto.getPageId())) {
-//            throw new CustomException("Function already exists");
-//        }
         return PageFunctionMapper.INSTANCE.toDto(pageFunctionRepository.save(PageFunctionMapper.INSTANCE.toEntity(dto)));
     }
 

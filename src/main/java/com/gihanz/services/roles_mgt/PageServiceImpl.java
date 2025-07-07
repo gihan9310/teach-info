@@ -4,8 +4,11 @@ package com.gihanz.services.roles_mgt;
  */
 
 import com.gihanz.dtos.roles_mgt.PageDto;
+import com.gihanz.dtos.roles_mgt.PageFunctionDto;
 import com.gihanz.entities.roles_mgt.PageEntity;
+import com.gihanz.entities.roles_mgt.PageFunctionEntity;
 import com.gihanz.exceptions.CustomException;
+import com.gihanz.repositories.roles_mgt.FunctionEntityRepository;
 import com.gihanz.repositories.roles_mgt.PageEntityRepository;
 import com.gihanz.repositories.roles_mgt.PageFunctionRepository;
 import com.gihanz.services.SuperService;
@@ -14,6 +17,7 @@ import com.gihanz.utils.mappers.PageMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +29,11 @@ public class PageServiceImpl implements SuperService<PageEntity, PageDto> {
 
     private final PageEntityRepository pageEntityRepository;
     private final PageFunctionRepository pageFunctionRepository;
+    private final FunctionEntityRepository functionEntityRepository;
 
     @Override
     public PageDto create(PageDto dto) {
-        if (pageEntityRepository.existsByNameAndCode(dto.getName(), dto.getCode())) {
+        if (pageEntityRepository.existsByNameAndCodeAndIdNot(dto.getName(), dto.getCode(), dto.getId())) {
             throw new CustomException("Page already exists");
         }
         return PageMapper.INSTANCE.toDto(pageEntityRepository.save(PageMapper.INSTANCE.toEntity(dto)));
@@ -66,15 +71,30 @@ public class PageServiceImpl implements SuperService<PageEntity, PageDto> {
         Save Page with Functions
      */
 
+    @Transactional
     public PageDto createOrUpdateWithFunctions(PageDto dto) {
-        if(dto.getFunctions()==null){
+        if (dto.getFunctions() == null) {
             throw new CustomException("Functions cannot be null");
         }
-//        pageFunctionRepository.existsByFunctionCodeAndPageId()
+        if (pageEntityRepository.existsByNameAndCodeAndIdNot(dto.getName(), dto.getCode(), dto.getId())) {
+            throw new CustomException("Page already exists");
+        }
         PageDto pageDto = PageMapper.INSTANCE.toDto(pageEntityRepository.save(PageMapper.INSTANCE.toEntity(dto)));
-         pageFunctionRepository.saveAll(dto.getFunctions().stream().map(PageFunctionMapper.INSTANCE::toEntity).toList()).stream().map(PageFunctionMapper.INSTANCE::toDto).toList();
-         pageDto.setFunctions(dto.getFunctions());
-         return pageDto;
+        List<Long> functionIds = dto.getFunctions().stream().map(PageFunctionDto::getFunctionId).toList();
+
+        if (pageFunctionRepository.existsAllByFunctionIdInAndPageId(functionIds, pageDto.getId())) {
+            throw new CustomException("Function already exists");
+        }
+
+        List<PageFunctionEntity> entities = pageFunctionRepository.saveAll(dto.getFunctions().stream().map(res -> {
+            res.setPageId(pageDto.getId());
+            if(!functionEntityRepository.existsById(res.getFunctionId())){
+                throw new CustomException("Function does not exist");
+            }
+            return PageFunctionMapper.INSTANCE.toEntity(res);
+        }).toList());
+        pageDto.setFunctions(entities.stream().map(PageFunctionMapper.INSTANCE::toDto).toList());
+        return pageDto;
     }
 
 }

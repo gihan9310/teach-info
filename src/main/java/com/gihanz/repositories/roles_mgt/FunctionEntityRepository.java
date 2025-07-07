@@ -10,5 +10,6 @@ public interface FunctionEntityRepository extends JpaRepository<FunctionEntity, 
 
  boolean existsByNameAndCode(String name, String code);
  boolean existsByNameAndIdNot(String name, Long id);
+ boolean existsById(Long id);
 
 }
