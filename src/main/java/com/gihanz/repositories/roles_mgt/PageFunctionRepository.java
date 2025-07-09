@@ -1,6 +1,5 @@
 package com.gihanz.repositories.roles_mgt;
 
-import com.gihanz.entities.roles_mgt.PageEntity;
 import com.gihanz.entities.roles_mgt.PageFunctionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -4,7 +4,6 @@ import com.gihanz.dtos.UserDto;
 import com.gihanz.services.impl.UserServiceImpl;
 import com.gihanz.utils.CustomPage;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

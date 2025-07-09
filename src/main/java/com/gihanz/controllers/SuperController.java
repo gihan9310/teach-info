@@ -2,7 +2,6 @@ package com.gihanz.controllers;
 
 import com.gihanz.dtos.SuperDto;
 import com.gihanz.utils.CustomPage;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +28,6 @@ public interface SuperController<T extends SuperDto> {
     ResponseEntity<T> findById(@PathVariable("id") Long id);
 
     @PostMapping("/search")
-    ResponseEntity<CustomPage<T>> search(@RequestBody T dto, @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.DESC) Pageable pageable);
+    ResponseEntity<CustomPage<T>> search(@RequestBody T dto, @PageableDefault(direction = Sort.Direction.DESC) Pageable pageable);
 
 }

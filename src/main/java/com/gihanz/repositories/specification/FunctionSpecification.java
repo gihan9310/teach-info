@@ -4,9 +4,7 @@ package com.gihanz.repositories.specification;
  */
 
 import com.gihanz.dtos.roles_mgt.FunctionDto;
-import com.gihanz.dtos.roles_mgt.PageDto;
 import com.gihanz.entities.roles_mgt.FunctionEntity;
-import com.gihanz.entities.roles_mgt.PageEntity;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

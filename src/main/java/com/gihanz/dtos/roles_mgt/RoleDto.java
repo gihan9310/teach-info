@@ -4,11 +4,6 @@ package com.gihanz.dtos.roles_mgt;
  */
 
 import com.gihanz.dtos.SuperDto;
-import com.gihanz.entities.SuperEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter

@@ -1,7 +1,6 @@
 package com.gihanz.services;
 
 import com.gihanz.dtos.SuperDto;
-import com.gihanz.entities.SuperEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,6 +20,9 @@ public interface SuperService<D extends SuperDto> {
 
     Page<D> search(D dto , Pageable pageable);
 
+    /*
+     it will Used
+     */
     default List<D> saveAsList(List<D> dtos) {
         return dtos;
     }

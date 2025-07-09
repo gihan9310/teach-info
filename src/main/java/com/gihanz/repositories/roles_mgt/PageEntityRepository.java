@@ -6,8 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 /*
  * Copyright (c) 2025 Gihan Rathnayaka. All rights reserved.
  */

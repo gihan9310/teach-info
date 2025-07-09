@@ -8,7 +8,6 @@ import com.gihanz.dtos.roles_mgt.FunctionDto;
 import com.gihanz.services.roles_mgt.FunctionServiceImpl;
 import com.gihanz.utils.CustomPage;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

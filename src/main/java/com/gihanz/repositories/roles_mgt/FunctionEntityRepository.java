@@ -1,7 +1,6 @@
 package com.gihanz.repositories.roles_mgt;
 
 import com.gihanz.entities.roles_mgt.FunctionEntity;
-import com.gihanz.entities.roles_mgt.PageEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,8 +14,6 @@ public interface FunctionEntityRepository extends JpaRepository<FunctionEntity, 
     boolean existsByNameAndCode(String name, String code);
 
     boolean existsByNameAndIdNot(String name, Long id);
-
-    boolean existsById(Long id);
 
     Page<FunctionEntity> findAll(Specification<FunctionEntity> spec, Pageable pageable);
 
