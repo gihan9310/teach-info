@@ -2,10 +2,12 @@ package com.gihanz.services;
 
 import com.gihanz.dtos.SuperDto;
 import com.gihanz.entities.SuperEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface SuperService<E extends SuperEntity, D extends SuperDto> {
+public interface SuperService<D extends SuperDto> {
 
     D create(D dto);
 
@@ -16,6 +18,8 @@ public interface SuperService<E extends SuperEntity, D extends SuperDto> {
     List<D> findAll();
 
     D findById(Long id);
+
+    Page<D> search(D dto , Pageable pageable);
 
     default List<D> saveAsList(List<D> dtos) {
         return dtos;

@@ -9,10 +9,13 @@ import com.gihanz.exceptions.CustomException;
 import com.gihanz.repositories.roles_mgt.FunctionEntityRepository;
 import com.gihanz.repositories.roles_mgt.PageEntityRepository;
 import com.gihanz.repositories.roles_mgt.PageFunctionRepository;
+import com.gihanz.repositories.specification.PageFunctionSpecification;
 import com.gihanz.services.SuperService;
 import com.gihanz.utils.mappers.PageFunctionMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +24,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class PageFunctionServiceImpl implements SuperService<PageFunctionEntity, PageFunctionDto> {
+public class PageFunctionServiceImpl implements SuperService< PageFunctionDto> {
 
     private final PageFunctionRepository pageFunctionRepository;
     private final PageEntityRepository pageEntityRepository;
@@ -59,6 +62,12 @@ public class PageFunctionServiceImpl implements SuperService<PageFunctionEntity,
     @Override
     public PageFunctionDto findById(Long id) {
         return pageFunctionRepository.findById(id).map(PageFunctionMapper.INSTANCE::toDto).orElse(null);
+    }
+
+    @Override
+    public Page<PageFunctionDto> search(PageFunctionDto dto, Pageable pageable) {
+        return pageFunctionRepository.findAll(PageFunctionSpecification.build(dto), pageable)
+                .map(PageFunctionMapper.INSTANCE::toDto);
     }
 
     @Override

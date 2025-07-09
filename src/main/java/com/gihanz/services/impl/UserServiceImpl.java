@@ -6,6 +6,8 @@ import com.gihanz.repositories.UserRepository;
 import com.gihanz.services.SuperService;
 import com.gihanz.utils.mappers.UserMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements SuperService<UserEntity, UserDto> {
+public class UserServiceImpl implements SuperService< UserDto> {
 
     private final UserRepository userRepository;
 
@@ -47,5 +49,10 @@ public class UserServiceImpl implements SuperService<UserEntity, UserDto> {
     public UserDto findById(Long id) {
         Optional<UserEntity> entity = userRepository.findById(id);
         return entity.map(UserMapper.INSTANCE::toDto).orElse(null);
+    }
+
+    @Override
+    public Page<UserDto> search(UserDto dto, Pageable pageable) {
+        return null;
     }
 }

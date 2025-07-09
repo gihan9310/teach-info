@@ -44,6 +44,16 @@ public class GlobuleExceptionHandler {
                 .build());
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleException(Exception ex) {
+        log.debug(EX_BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.badRequest().body(ExceptionResponse.builder()
+                .errorCode(RESPONSE_CODE.BAD_REQUEST.getCode())
+                .description(ex.getLocalizedMessage())
+                .message(ex.getMessage())
+                .build());
+    }
+
     @ExceptionHandler(ServerWebInputException.class)
     public ResponseEntity<String> handleInvalidInput(ServerWebInputException ex) {
         ex.printStackTrace();

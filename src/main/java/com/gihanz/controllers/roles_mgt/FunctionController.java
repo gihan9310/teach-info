@@ -6,7 +6,10 @@ package com.gihanz.controllers.roles_mgt;
 import com.gihanz.controllers.SuperController;
 import com.gihanz.dtos.roles_mgt.FunctionDto;
 import com.gihanz.services.roles_mgt.FunctionServiceImpl;
+import com.gihanz.utils.CustomPage;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,4 +48,11 @@ public class FunctionController implements SuperController<FunctionDto> {
     public ResponseEntity<FunctionDto> findById(Long id) {
         return ResponseEntity.ok(functionService.findById(id));
     }
+
+    @Override
+    public ResponseEntity<CustomPage<FunctionDto>> search(FunctionDto dto, Pageable pageable) {
+            return ResponseEntity.ok( new CustomPage<>(functionService.search(dto, pageable)));
+    }
+
+
 }

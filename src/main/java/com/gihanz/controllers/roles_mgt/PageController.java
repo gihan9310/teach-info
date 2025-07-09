@@ -6,12 +6,12 @@ package com.gihanz.controllers.roles_mgt;
 import com.gihanz.controllers.SuperController;
 import com.gihanz.dtos.roles_mgt.PageDto;
 import com.gihanz.services.roles_mgt.PageServiceImpl;
+import com.gihanz.utils.CustomPage;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,10 +27,12 @@ public class PageController implements SuperController<PageDto> {
     public ResponseEntity<PageDto> save(PageDto dto) {
         return ResponseEntity.ok(pageService.create(dto));
     }
+
     @Override
     public ResponseEntity<PageDto> update(PageDto dto) {
         return ResponseEntity.ok(pageService.update(dto));
     }
+
     @Override
     public ResponseEntity<PageDto> delete(Long id) {
         return ResponseEntity.ok(pageService.delete(id));
@@ -46,9 +48,21 @@ public class PageController implements SuperController<PageDto> {
         return ResponseEntity.ok(pageService.findById(id));
     }
 
+    @Override
+    public ResponseEntity<CustomPage<PageDto>> search(PageDto dto, Pageable pageable) {
+        return ResponseEntity.ok(new CustomPage<>(pageService.search(dto, pageable)));
+    }
+
+
     @PostMapping("/save-with-functions")
-    public ResponseEntity<PageDto> saveWithFullData( @RequestBody PageDto dto) {
+    public ResponseEntity<PageDto> saveWithFullData(@RequestBody PageDto dto) {
         return ResponseEntity.ok(pageService.createOrUpdateWithFunctions(dto));
     }
+
+    @GetMapping("/get-all-with-functions")
+    public ResponseEntity<List<PageDto>> saveWithFullData() {
+        return ResponseEntity.ok(pageService.findAllWithFunctions());
+    }
+
 
 }

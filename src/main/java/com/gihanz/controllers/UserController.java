@@ -2,7 +2,10 @@ package com.gihanz.controllers;
 
 import com.gihanz.dtos.UserDto;
 import com.gihanz.services.impl.UserServiceImpl;
+import com.gihanz.utils.CustomPage;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,4 +46,11 @@ public class UserController implements SuperController<UserDto>{
     public ResponseEntity<UserDto> findById(Long id) {
         return ResponseEntity.ok(userService.findById(id)) ;
     }
+
+    @Override
+    public ResponseEntity<CustomPage<UserDto>> search(UserDto dto, Pageable pageable) {
+        return null;
+    }
+
+
 }

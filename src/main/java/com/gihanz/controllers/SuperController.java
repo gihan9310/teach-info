@@ -1,22 +1,34 @@
 package com.gihanz.controllers;
 
 import com.gihanz.dtos.SuperDto;
+import com.gihanz.utils.CustomPage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public interface SuperController <T extends SuperDto> {
+public interface SuperController<T extends SuperDto> {
 
     @PostMapping("")
-    ResponseEntity<T>  save(@RequestBody T t);
+    ResponseEntity<T> save(@RequestBody T t);
+
     @PutMapping
-    ResponseEntity<T>  update(@RequestBody T t);
+    ResponseEntity<T> update(@RequestBody T t);
+
     @DeleteMapping("/{id}")
-    ResponseEntity<T>  delete(@PathVariable("id") Long id);
+    ResponseEntity<T> delete(@PathVariable("id") Long id);
+
     @GetMapping
-    ResponseEntity<List<T>>   findAll();
+    ResponseEntity<List<T>> findAll();
+
     @GetMapping("/{id}")
-    ResponseEntity<T>  findById(@PathVariable("id") Long id);
+    ResponseEntity<T> findById(@PathVariable("id") Long id);
+
+    @PostMapping("/search")
+    ResponseEntity<CustomPage<T>> search(@RequestBody T dto, @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.DESC) Pageable pageable);
 
 }

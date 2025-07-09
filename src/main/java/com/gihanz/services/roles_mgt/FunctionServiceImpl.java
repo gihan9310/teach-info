@@ -7,21 +7,22 @@ import com.gihanz.dtos.roles_mgt.FunctionDto;
 import com.gihanz.entities.roles_mgt.FunctionEntity;
 import com.gihanz.exceptions.CustomException;
 import com.gihanz.repositories.roles_mgt.FunctionEntityRepository;
+import com.gihanz.repositories.specification.FunctionSpecification;
 import com.gihanz.services.SuperService;
 import com.gihanz.utils.mappers.FunctionMapper;
-import jakarta.persistence.EntityExistsException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-public class FunctionServiceImpl implements SuperService<FunctionEntity, FunctionDto> {
+public class FunctionServiceImpl implements SuperService< FunctionDto> {
 
     private final FunctionEntityRepository functionEntityRepository;
 
@@ -63,5 +64,11 @@ public class FunctionServiceImpl implements SuperService<FunctionEntity, Functio
     @Override
     public FunctionDto findById(Long id) {
         return functionEntityRepository.findById(id).map(FunctionMapper.INSTANCE::toDto).orElse(null);
+    }
+
+    @Override
+    public Page<FunctionDto> search(FunctionDto dto, Pageable pageable) {
+        return functionEntityRepository.findAll(FunctionSpecification.build(dto), pageable)
+                .map(FunctionMapper.INSTANCE::toDto);
     }
 }
