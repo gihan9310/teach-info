@@ -4,7 +4,6 @@ package com.gihanz.services.roles_mgt;
  */
 
 import com.gihanz.dtos.roles_mgt.PageDto;
-import com.gihanz.dtos.roles_mgt.PageFunctionDto;
 import com.gihanz.entities.roles_mgt.FunctionEntity;
 import com.gihanz.entities.roles_mgt.PageEntity;
 import com.gihanz.entities.roles_mgt.PageFunctionEntity;
@@ -94,11 +93,6 @@ public class PageServiceImpl implements SuperService< PageDto> {
             throw new CustomException("Page already exists");
         }
         PageDto pageDto = PageMapper.INSTANCE.toDto(pageEntityRepository.save(PageMapper.INSTANCE.toEntity(dto)));
-        List<Long> functionIds = dto.getFunctions().stream().map(PageFunctionDto::getFunctionId).toList();
-
-        if (pageFunctionRepository.existsAllByFunctionIdInAndPageId(functionIds, pageDto.getId())) {
-            throw new CustomException("Function already exists");
-        }
 
         List<PageFunctionEntity> entities = pageFunctionRepository.saveAll(dto.getFunctions().stream().map(res -> {
             res.setPageId(pageDto.getId());

@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,5 +55,11 @@ public class RoleController implements SuperController<RoleDto> {
     @Override
     public ResponseEntity<CustomPage<RoleDto>> search(RoleDto dto, Pageable pageable) {
         return ResponseEntity.ok(new CustomPage<>(roleServiceImpl.search(dto, pageable)));
+    }
+
+    @PostMapping("create-role-with-page-and-function")
+    public ResponseEntity<RoleDto> createRoleWithFunction(@RequestBody RoleDto roleDto) {
+        log.info("createRoleWithFunction {}", roleDto.toString());
+        return ResponseEntity.ok(roleServiceImpl.createRoleWithPageFunction(roleDto));
     }
 }

@@ -3,20 +3,15 @@ package com.gihanz.dtos.roles_mgt;
  * Copyright (c) 2025 Gihan Rathnayaka. All rights reserved.
  */
 
-
 import com.gihanz.dtos.SuperDto;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class PageFunctionDto extends SuperDto {
-
-    private String pageCode;
-    private String functionCode;
+public class RolePageFunctionDto extends SuperDto {
     private Long pageId;
+    private Long roleId;
     private Long functionId;
-    private boolean active;
+    private boolean enabled = false;
 }

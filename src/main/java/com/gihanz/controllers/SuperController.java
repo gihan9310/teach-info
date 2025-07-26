@@ -13,10 +13,10 @@ import java.util.List;
 public interface SuperController<T extends SuperDto> {
 
     @PostMapping("")
-    ResponseEntity<T> save(@RequestBody T t);
+    ResponseEntity<T> save(@RequestBody T dto);
 
     @PutMapping
-    ResponseEntity<T> update(@RequestBody T t);
+    ResponseEntity<T> update(@RequestBody T dto);
 
     @DeleteMapping("/{id}")
     ResponseEntity<T> delete(@PathVariable("id") Long id);

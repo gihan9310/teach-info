@@ -6,9 +6,14 @@ package com.gihanz.utils.mappers;
 import com.gihanz.dtos.roles_mgt.RoleDto;
 import com.gihanz.entities.roles_mgt.RoleEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface RoleMapper extends SuperMapper<RoleDto, RoleEntity> {
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
+
+    @Mapping(target = "pages", ignore = true)
+    @Override
+    RoleDto toDto(RoleEntity roleEntity);
 }

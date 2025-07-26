@@ -4,23 +4,22 @@ package com.gihanz.entities.roles_mgt;
  */
 
 import com.gihanz.entities.SuperEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(indexes = {
-        @Index(name = "index_Role_index",columnList = "code,Id,name")
+        @Index(name = "index_Role_Page_index",columnList = "pageId,roleId")
 
-},name = "TBL_ROLES")
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class RoleEntity extends SuperRoleEntity {
-    private Boolean enabled;
+},name = "TBL_ROLES_PAGES")
+public class RolePageEntity extends SuperEntity {
 
+    private Long pageId;
+    private Long roleId;
+    private boolean enabled = false;
 }

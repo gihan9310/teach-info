@@ -46,6 +46,7 @@ public class GlobuleExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleException(Exception ex) {
+        ex.printStackTrace();
         log.debug(EX_BAD_REQUEST, ex.getMessage());
         return ResponseEntity.badRequest().body(ExceptionResponse.builder()
                 .errorCode(RESPONSE_CODE.BAD_REQUEST.getCode())

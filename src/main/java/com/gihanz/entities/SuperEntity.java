@@ -16,5 +16,5 @@ import java.io.Serializable;
 public class SuperEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 }

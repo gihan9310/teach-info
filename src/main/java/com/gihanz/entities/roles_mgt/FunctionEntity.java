@@ -1,8 +1,5 @@
 package com.gihanz.entities.roles_mgt;
 
-import com.gihanz.dtos.SuperDto;
-import com.gihanz.entities.SuperEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
@@ -21,11 +18,6 @@ import lombok.*;
 },name = "TBL_R_FUNCTIONS")
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class FunctionEntity extends SuperEntity {
-    @Column(length = 20, nullable = false,unique = true,updatable = false)
-    private String code;
-    @Column(length = 50, nullable = false,unique = true)
-    private String name;
-    private String description;
+public class FunctionEntity extends SuperRoleEntity {
+
 }
