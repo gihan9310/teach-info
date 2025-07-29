@@ -53,7 +53,7 @@ jobs:
             pm2 delete spring-app || true
 
             # Start or restart the JAR with PM2
-            pm2 start java --name spring-app -- -jar build/libs/${{ secrets.JAR_NAME }} --server.port=9090"
+            pm2 start java --name spring-app -- -jar build/libs/${{ secrets.JAR_NAME }} 
 
             # Save PM2 process list
             pm2 save
