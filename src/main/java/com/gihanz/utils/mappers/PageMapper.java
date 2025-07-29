@@ -14,6 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface PageMapper extends SuperMapper<PageDto, PageEntity> {
     PageMapper INSTANCE = Mappers.getMapper(PageMapper.class);
 
+    @Mapping(target = "active", ignore = true)
     @Mapping(target = "functions", ignore = true)
     @Override
     PageDto toDto(PageEntity pageEntity);
