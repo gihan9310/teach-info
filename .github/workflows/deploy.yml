@@ -48,6 +48,7 @@ jobs:
             
             mkdir -p ~/app
             cd ~/app
+            sudo chmod -R 777 ./
 
             # Stop existing app
             pm2 delete spring-app || true
