@@ -54,6 +54,7 @@ jobs:
 
             # Start or restart the JAR with PM2
             pm2 start "java -jar /app/build/libs${{ secrets.JAR_NAME }} --server.port=9090" --name spring-app
+            pm2 logs spring-app
 
             # Save PM2 process list
             pm2 save
