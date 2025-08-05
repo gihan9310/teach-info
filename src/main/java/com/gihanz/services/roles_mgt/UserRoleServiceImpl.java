@@ -61,12 +61,19 @@ public class UserRoleServiceImpl implements SuperService<UserRoleDto> {
 
     @Override
     public Page<UserRoleDto> search(UserRoleDto dto, Pageable pageable) {
-      return  userRoleRepository.findAll(UserRoleSpecification.build(dto),pageable).map(UserRoleMapper.INSTANCE::toDto);
+        return userRoleRepository.findAll(UserRoleSpecification.build(dto), pageable).map(UserRoleMapper.INSTANCE::toDto);
 
     }
 
     @Override
     public List<UserRoleDto> saveAsList(List<UserRoleDto> dtos) {
         return SuperService.super.saveAsList(dtos);
+    }
+
+
+    public List<UserRoleDto> assignRoleAsList(List<UserRoleDto> list) {
+      return   list.stream().map(dto -> {
+          return UserRoleMapper.INSTANCE.toDto(userRoleRepository.save(UserRoleMapper.INSTANCE.toEntity(dto)));
+        }).toList();
     }
 }
