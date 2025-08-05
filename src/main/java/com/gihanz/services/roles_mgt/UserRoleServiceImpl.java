@@ -72,8 +72,6 @@ public class UserRoleServiceImpl implements SuperService<UserRoleDto> {
 
 
     public List<UserRoleDto> assignRoleAsList(List<UserRoleDto> list) {
-      return   list.stream().map(dto -> {
-          return UserRoleMapper.INSTANCE.toDto(userRoleRepository.save(UserRoleMapper.INSTANCE.toEntity(dto)));
-        }).toList();
+      return   list.stream().map(dto -> UserRoleMapper.INSTANCE.toDto(userRoleRepository.save(UserRoleMapper.INSTANCE.toEntity(dto)))).toList();
     }
 }
